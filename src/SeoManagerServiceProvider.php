@@ -1,10 +1,10 @@
 <?php
 
-namespace Aman\SeoManager;
+namespace Aman5537jains\SeoManager;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
-use Aman\SeoManager\SeoManager as SM;
+use Aman5537jains\SeoManager\SeoManager as SM;
 class SeoManagerServiceProvider extends ServiceProvider
 {
     /**

@@ -1,5 +1,5 @@
 <?php
-namespace Aman\SeoManager\Model;
+namespace Aman5537jains\SeoManager\Model;
 use Illuminate\Database\Eloquent\Model;
 
 

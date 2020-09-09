@@ -1,6 +1,6 @@
 <?php
 
-namespace Aman\SeoManager;
+namespace Aman5537jains\SeoManager;
  
 use Illuminate\View\Component;
 

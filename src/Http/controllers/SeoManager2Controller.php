@@ -1,10 +1,10 @@
 <?php
-namespace Aman\SeoManager\Http\Controllers;
+namespace Aman5537jains\SeoManager\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Aman\SeoManager\Model\SeoManager as SM;
-use Aman\SeoManager\SeoManager as SMM;
+use Aman5537jains\SeoManager\Model\SeoManager as SM;
+use Aman5537jains\SeoManager\SeoManager as SMM;
 
 use Illuminate\Support\Facades\Validator;
  

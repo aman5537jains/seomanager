@@ -11,14 +11,14 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Aman\\SeoManager\\SeoManagerServiceProvider"
+                "Aman5537jains\\SeoManager\\SeoManagerServiceProvider"
             ]
         }
     },
     "require": {},
     "autoload": {
         "psr-4": {
-            "Aman\\SeoManager\\": "src/"
+            "Aman5537jains\\SeoManager\\": "src/"
         }
     }
 }

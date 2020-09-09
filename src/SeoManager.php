@@ -1,9 +1,9 @@
 <?php
 
-namespace Aman\SeoManager;
+namespace Aman5537jains\SeoManager;
 
-use Aman\SeoManager\Model\SeoManager as SM;
-use Aman\SeoManager\Model\SeoManagerParam as SMP;
+use Aman5537jains\SeoManager\Model\SeoManager as SM;
+use Aman5537jains\SeoManager\Model\SeoManagerParam as SMP;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
