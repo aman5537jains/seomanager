@@ -87,7 +87,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   <script>
    
-     var models  =   JSON.parse('{!!\Aman\SeoManager\SeoManager::tablesView('models')!!}');
+     var models  =   JSON.parse('{!!\Aman5537jains\SeoManager\SeoManager::tablesView('models')!!}');
   var getModelValue=function(model,e){
       
       var paramHtml="<option value=''>Model Column to Map With</option>";
