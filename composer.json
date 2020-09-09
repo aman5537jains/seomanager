@@ -1,0 +1,24 @@
+{
+    "name": "aman/seo-manager",
+    "description": "to manage the seo tags",
+    "type": "metapackage",
+    "authors": [
+        {
+            "name": "aman",
+            "email": "ajain@abnosoftwares.co.ke"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Aman\\SeoManager\\SeoManagerServiceProvider"
+            ]
+        }
+    },
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Aman\\SeoManager\\": "src/"
+        }
+    }
+}
