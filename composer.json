@@ -1,7 +1,7 @@
 {
     "name": "aman5537jains/seo-manager",
     "description": "to manage the seo tags",
-    "type": "metapackage",
+    "type": "library",
     "authors": [
         {
             "name": "aman",
