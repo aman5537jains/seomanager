@@ -49,11 +49,24 @@ class SeoManager
 
     public function addView($id="")
     {        
+        $exceptRoutes= self::config("except_routes");
+
+        $routes = \Route::getRoutes();
+        $getRoutes = array_keys($routes->get('GET'));
+        
+        foreach ($getRoutes as $key => $route) {
+            foreach ($exceptRoutes as $rule) {
+                if (strpos($route, $rule) !== FALSE) {
+                    unset($getRoutes[$key]);
+                }
+            }
+        }
+         
             if($id==""){
-                return view("seomanager::add",["detail"=> new SM(),"params"=>false]);
+                return view("seomanager::add",["detail"=> new SM(),"params"=>false,'routes'=>$getRoutes]);
             }
             else
-                return view("seomanager::add",["detail"=> SM::find($id),"params"=>SMP::where("seo_manager_id",$id)->get()]);
+                return view("seomanager::add",["detail"=> SM::find($id),"params"=>SMP::where("seo_manager_id",$id)->get(),'routes'=>$getRoutes]);
     }
 
     public function saveManager(Request $request)
@@ -112,7 +125,7 @@ class SeoManager
                     $SMP->param_model_value = $request->parammodelvalue[$k];
                     $SMP->param_value       = $request->paramvalue[$k]==null || $request->paramvalue[$k]=='' ?"":$request->paramvalue[$k];
                     $SMP->save();
-
+                    if($SMP->param_value!='')
                     $request->url=     str_replace("{".$name."}", $SMP->param_value ,$request->url);
 
                 }
@@ -123,9 +136,15 @@ class SeoManager
             return ["status"=>true,"erros"=>"","msg"=>"Success",'details'=> $row];
         }
     }
+    public function pageTags(){
 
+       
+        return  view("seomanager::meta",["meta"=>  $this]);
+        
 
-    public function getPageMeta(Request $request)
+    }
+
+    public function getPageMeta()
     {       
         $haveTag=0; 
         $route  = \Route::current();
@@ -133,7 +152,7 @@ class SeoManager
           $name   = \Route::currentRouteName();
         
           $action = \Route::currentRouteAction();
-           
+          $request= request();
         $SMTag=SM::where("re_url",$request->path())->count();
         if(SM::where("re_url",$request->path())->count()>0){
             $haveTag= SM::where("re_url",$request->path())->first();
@@ -184,7 +203,7 @@ class SeoManager
         // }   
        
         if($haveTag){
-            $all_details=["havetag"=>$haveTag];
+            $all_details=[];
             $models=self::config("models");
             
             $params=SMP::where("seo_manager_id",$haveTag->id);

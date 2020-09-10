@@ -15,7 +15,14 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">URL</label>
                             <input name="edit_id" value="{{$detail->id}}" class="form-control" type='hidden' placeholder="URL"  >
-                            <input name="url" value="{{$detail->url}}" class="form-control" placeholder="URL" id="url">
+                            <!-- <input value="{{$detail->url}}" class="form-control" placeholder="URL" id="url"> -->
+                          
+                            <select class='form-control' value="{{$detail->url}}" name="url"  id="url"   >
+                            <?php foreach($routes as $route){ ?>
+                                <option  {{$detail->url==$route?'selected':''}} >{{$route}}</option>
+                            <?php  } ?> 
+                            </select>
+                         
                             <small id="emailHelp" class="form-text text-muted">Enter the route url.</small>
                         </div>
                         <div class="form-group">

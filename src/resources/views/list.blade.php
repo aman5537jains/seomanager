@@ -8,6 +8,9 @@
             <td>
                 title
             </td>
+            <td>
+               Edit
+            </td>
         </tr>
    
     <?php foreach( $list as $k=>$v){ ?>
@@ -17,6 +20,9 @@
                 </td>
                 <td>
                 {{$v->meta_title}}
+                </td>
+                <td>
+                <a href="{{url('seo-manager/edit/'.$v->id)}}">Edit</a>
                 </td>
         </tr>
     <?php  } ?>

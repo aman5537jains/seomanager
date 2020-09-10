@@ -23,6 +23,16 @@ class SeoManagerServiceProvider extends ServiceProvider
                 return $SM->listView();
             
         });
+
+        Blade::directive('seomanagertags', function ($expression) {
+            $SM=new SM();
+            return   '<?php $manager=new \Aman5537jains\SeoManager\SeoManager();
+            $meta= $manager->getPageMeta()["havetag"];
+                                echo "<title>$meta->meta_title</title>
+                                <meta name=\'description\' content=\'$meta->meta_description\'>
+                                <meta name=\'keywords\' content=\'$meta->meta_keyword\'>"; ?>';;
+        });
+
         $this->publishes([
             __DIR__.'/seoconfig.php' => config_path('seoconfig.php','seoconfig'),
         ]);
