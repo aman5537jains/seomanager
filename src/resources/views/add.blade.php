@@ -153,6 +153,7 @@ padding:5px;
 
             }
             if(startStrfill){
+                if(sb!="?")
                 strfill+=sb;
             }
             if(sb=="{"){

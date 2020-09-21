@@ -13,7 +13,7 @@ Route::group(['namespace' => 'Aman5537jains\SeoManager\Http\controllers'], funct
     Route::get('seo-manager/suggestions', 'SeoManager2Controller@suggestions');
     
     Route::post('seo-manager/add-post', 'SeoManager2Controller@addPost');
-    Route::get('w/{w}/{p}', 'SeoManager2Controller@checkurl');
+    Route::get('w/{w}/{p?}', 'SeoManager2Controller@checkurl');
     Route::get('s/{w}/{p}', 'SeoManager2Controller@checkurl');
     Route::get('pages/{page}', 'SeoManager2Controller@checkurl');
     Route::get('pages/{page}', 'SeoManager2Controller@checkurl');
