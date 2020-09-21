@@ -12,6 +12,7 @@
             
             
                 <div class="col-6"> 
+                       
                         <div class="form-group">
                             <label for="exampleInputEmail1">URL</label>
                             <input name="edit_id" value="{{$detail->id}}" class="form-control" type='hidden' placeholder="URL"  >
@@ -45,11 +46,18 @@
                         
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">meta_description</label>
+                            <label for="exampleInputEmail1">Author</label>
                         
-                            <input name="meta_description" value="{{$detail->meta_description}}" class="form-control" placeholder="Meta Description"  >
+                            <input name="author" value="{{$detail->author}}" class="form-control" placeholder="Author"  >
                         
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Canonical Url</label>
+                        
+                            <input name="canonical_url" value="{{$detail->canonical_url}}" class="form-control" placeholder="Canonical Url"  >
+                        
+                        </div>
+                        
                         <div class="form-group">
                             <label for="exampleInputEmail1">Type</label>
                         
@@ -84,11 +92,24 @@
 </div>
 <style>
 .paramvalue{display:none}
+.suggestions{
+    border:1px solid grey;
+    position:absolute;
+    z-index:9999;
+    width:90%;
+    background: white;
+}
+.bdr{
+    border-bottom:1px solid grey;
+padding:5px;    
+
+}
 </style>
-<script
+<!-- <script
   src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
   integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
-  crossorigin="anonymous"></script>
+  crossorigin="anonymous"></script> -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
@@ -156,7 +177,7 @@
 
         for(var param of params){
             paramHtml+="<p>"+param.value+"</p> <input name='param[]' value='"+param.value+"' type='hidden'  > "
-            +getModels()+" <select    name='parammodelvalue[]'  id='parammodelvalue_"+param.value+"' class='parammodelvalue form-control' ></select> <input   class='paramvalue form-control' id='paramvalue_"+param.value+"' name='paramvalue[]' placeholder='Model value'  > <br> ";
+            +getModels()+" <select    name='parammodelvalue[]'  id='parammodelvalue_"+param.value+"' class='parammodelvalue form-control' ></select> <input  autocomplete='off'  class='paramvalue form-control' id='paramvalue_"+param.value+"' name='paramvalue[]' placeholder='Model value'  > <br> ";
         }
 
         $("#params").html(paramHtml);
@@ -173,11 +194,44 @@
    }
   
   $(function(){
+    var timeclr;
+    $(document).on("keyup",".paramvalue",function(){
+        
+        if(timeclr){
+            clearTimeout(timeclr);
+            timeclr=false;
+        }
+        var e=this;
+        var col=$(this).prev().val();
+        var str=$(this).val();
+        var mdl=$(this).prev().prev().val();
+
+        timeclr = setTimeout(function(){
+
+       
+        $.get("{{url('seo-manager/suggestions')}}?mdl="+mdl+"&col="+col+"&str="+str,function(data){
+ 
+            var hmtld="<div class='suggestions'>";
+            for(var names of data){
+                hmtld+="<div class='bdr' >"+ names[col]+"</div>";
+            }
+            hmtld+="</div >";
+            $(e).next(".suggestions").remove();
+            $(hmtld).insertAfter($(e))
+        })
+    },500) 
+    })
+
+    $(document).on("click",".bdr",function(){
+        $(this).parent().prev().val($(this).html());
+        $(this).parent().remove();
+    });
  
     $(document).on("focusout","#url",function(){
        
        
         buildParams(this);
+        setValue("","[name='type']")
     })
     <?php  if($params){
         echo "var parsm=JSON.parse('".json_encode($params)."')";

@@ -21,7 +21,9 @@ class CreateSeoManagerTable extends Migration
 
             $table->enum('type',["FIX",'DYNAMIC']);
             $table->string('meta_title');
-            $table->string('meta_keyword');
+            $table->string('author');
+            $table->string('canonical_url');
+            $table->text('meta_keyword');
             $table->text('meta_description');
             $table->timestamps();
         });

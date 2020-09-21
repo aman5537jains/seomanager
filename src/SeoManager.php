@@ -50,10 +50,12 @@ class SeoManager
     public function addView($id="")
     {        
         $exceptRoutes= self::config("except_routes");
+        $subdomain= self::config("subdomain");
 
         $routes = \Route::getRoutes();
+
         $getRoutes = array_keys($routes->get('GET'));
-        
+        // dd($getRoutes );   
         foreach ($getRoutes as $key => $route) {
             foreach ($exceptRoutes as $rule) {
                 if (strpos($route, $rule) !== FALSE) {
@@ -63,10 +65,10 @@ class SeoManager
         }
          
             if($id==""){
-                return view("seomanager::add",["detail"=> new SM(),"params"=>false,'routes'=>$getRoutes]);
+                return view("seomanager::add",["detail"=> new SM(),"params"=>false,'routes'=>$getRoutes,"subdomains"=>$subdomain]);
             }
             else
-                return view("seomanager::add",["detail"=> SM::find($id),"params"=>SMP::where("seo_manager_id",$id)->get(),'routes'=>$getRoutes]);
+                return view("seomanager::add",["detail"=> SM::find($id),"params"=>SMP::where("seo_manager_id",$id)->get(),'routes'=>$getRoutes,"subdomains"=>$subdomain]);
     }
 
     public function saveManager(Request $request)
@@ -76,6 +78,7 @@ class SeoManager
             'url'               => 'required',
             // 'has_params'        => 'required',
             'meta_title'        => 'required',
+            'author'        => 'required',
             'meta_keyword'      => 'required',
             'meta_description'  => 'required',
             'type'              => 'required',
@@ -105,10 +108,11 @@ class SeoManager
                 $row =   SM::find($request->edit_id);
                 SMP::where("seo_manager_id",$request->edit_id)->delete();
             }
-            $row->url= $request->url;
-            $row->re_url= $request->url;
+            $row->url       = $request->url;
+            $row->re_url    = $request->url;
+            $row->author    = $request->author;
             $row->has_params='1';//$request->title;
-            $row->type=$request->type;
+            $row->type      =$request->type;
             $row->meta_title=$request->meta_title;
             $row->meta_keyword=$request->meta_keyword;
             $row->meta_description=$request->meta_description;
@@ -284,6 +288,17 @@ class SeoManager
        
     }
 
+    public function getSuggestions($rquest)
+    {        
+        $models= self::config("models");
+        $mdl= new $models[$rquest->mdl]();
+        
+       $data= $mdl->where($rquest->col,"like","%".$rquest->str."%")->select($rquest->col)->limit(5)->get();
+ 
+        return $data;
+    }
+
+    
 
 
 

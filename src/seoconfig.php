@@ -11,6 +11,12 @@ return
         "api",
         'filemanager',
         'file-manager',
-        'seo-manager'
+        'seo-manager',
+        "_debugbar",
+        "docs"
+    ],
+    "subdomain"=>[
+        "www",
+        // "*"=>["route"=>"{prefix_url}.jiunge.com",]
     ]
 ];

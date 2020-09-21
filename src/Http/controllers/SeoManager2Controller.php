@@ -36,8 +36,14 @@ class SeoManager2Controller extends Controller
         
         return $this->seoManager->getPageMeta($request);
     }
+
+    public function suggestions(Request $request)
+    {   
+        
+        return $this->seoManager->getSuggestions($request);
+    }
     
-   
+    
 
     
     
